@@ -5,6 +5,11 @@ High · Verified live · 2026-06-04 · `stefanpenner/tag-release-test`
 **Claim:** a `write`-role collaborator, denied direct push to a review-protected
 default branch, can repoint the **Latest release tag** to unreviewed code.
 
+**At a glance:** the attacked release [`v1.0.0`](https://github.com/stefanpenner/tag-release-test/releases/tag/v1.0.0)
+was moved from its legitimate, reviewed target [`a1c628d`](https://github.com/stefanpenner/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
+onto the unreviewed [`d17977b`](https://github.com/stefanpenner/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91)
+— [diff: what consumers silently got](https://github.com/stefanpenner/tag-release-test/compare/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8...d17977ba8e5a2bbeb38d39e93937da7db78eda91).
+
 ## Setup
 
 - `main`: protected — `required_approving_review_count=1`, `enforce_admins=true`
