@@ -64,3 +64,57 @@ Repository Ruleset, `target: tag`:
 
 Caveat: `make_latest=true` flags any non-draft release as Latest, so the protected
 pattern must cover every release-grade tag name.
+
+## API — create the protecting ruleset
+
+`POST /repos/{owner}/{repo}/rulesets` (org-wide: `POST /orgs/{org}/rulesets`).
+The "rule" is an entry in `rules[]`: `update` blocks moving a tag, `creation`
+blocks new tags, `deletion` blocks deletes.
+
+```bash
+gh api -X POST repos/OWNER/REPO/rulesets --input - <<'JSON'
+{
+  "name": "protect-release-tags",
+  "target": "tag",
+  "enforcement": "active",
+  "bypass_actors": [
+    { "actor_id": 5, "actor_type": "RepositoryRole", "bypass_mode": "always" }
+  ],
+  "conditions": { "ref_name": { "include": ["refs/tags/v*", "refs/tags/latest"], "exclude": [] } },
+  "rules": [ { "type": "creation" }, { "type": "update" }, { "type": "deletion" } ]
+}
+JSON
+```
+
+`actor_id` for `RepositoryRole`: `1` read · `2` triage · `3` write · `4` maintain
+· **`5` admin**. The fix depends on **`3` (write) NOT being in `bypass_actors`**.
+
+Related: `GET .../rulesets` (list) · `GET .../rulesets/{id}` (read) ·
+`PUT .../rulesets/{id}` (update, e.g. `-f enforcement=disabled`) ·
+`DELETE .../rulesets/{id}` (remove).
+
+## API — audit: is your repo affected?
+
+Affected = no active tag ruleset restricting tag `update` (and no legacy tag
+protection). Run against any repo:
+
+```bash
+audit() {
+  local R="$1" protected=false
+  for id in $(gh api repos/$R/rulesets --jq '.[] | select(.target=="tag" and .enforcement=="active") | .id' 2>/dev/null); do
+    gh api repos/$R/rulesets/$id --jq '[.rules[].type]' 2>/dev/null | grep -q '"update"' && protected=true
+  done
+  local legacy=$(gh api repos/$R/tags/protection --jq 'length' 2>/dev/null)
+  [[ "$legacy" =~ ^[0-9]+$ ]] && [ "$legacy" -gt 0 ] && protected=true
+  $protected && echo "PROTECTED  $R" || echo "AFFECTED   $R"
+}
+audit OWNER/REPO
+```
+
+Verified output (toggling this repo's ruleset enforcement):
+
+```
+ruleset active:    PROTECTED  stefanpenner/tag-release-test
+ruleset disabled:  AFFECTED   stefanpenner/tag-release-test
+ruleset active:    PROTECTED  stefanpenner/tag-release-test
+```
