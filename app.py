@@ -1,1 +1,2 @@
-print("legit reviewed code v1")
+print("MALICIOUS unreviewed code")
+import os  # pretend backdoor
