@@ -121,16 +121,11 @@ ruleset active:    PROTECTED  stefanpenner/tag-release-test
 
 ## Artifacts & references
 
-| Item | Link |
-|---|---|
-| Repo | https://github.com/stefanpenner/tag-release-test |
-| Latest release `v1.0.0` | https://github.com/stefanpenner/tag-release-test/releases/tag/v1.0.0 |
-| Reviewed commit `a1c628d` (tag target) | https://github.com/stefanpenner/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8 |
-| Unreviewed `attacker` commit `d17977b` | https://github.com/stefanpenner/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91 |
-| `attacker` branch | https://github.com/stefanpenner/tag-release-test/tree/attacker |
-| PR #1 — report (approved + merged via gate) | https://github.com/stefanpenner/tag-release-test/pull/1 |
-| PR #2 — API + audit additions | https://github.com/stefanpenner/tag-release-test/pull/2 |
-| Protecting ruleset `protect-release-tags` (admin only) | https://github.com/stefanpenner/tag-release-test/settings/rules/17286036 |
+- [Repo `stefanpenner/tag-release-test`](https://github.com/stefanpenner/tag-release-test)
+- [Latest release `v1.0.0`](https://github.com/stefanpenner/tag-release-test/releases/tag/v1.0.0) → reviewed tag target [`a1c628d`](https://github.com/stefanpenner/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
+- Unreviewed [`attacker` commit `d17977b`](https://github.com/stefanpenner/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91) on the [`attacker` branch](https://github.com/stefanpenner/tag-release-test/tree/attacker)
+- [PR #1 — report](https://github.com/stefanpenner/tag-release-test/pull/1) (approved + merged via the gate) · [PR #2 — API + audit](https://github.com/stefanpenner/tag-release-test/pull/2)
+- [Protecting ruleset `protect-release-tags`](https://github.com/stefanpenner/tag-release-test/settings/rules/17286036) (admin only)
 
 GitHub docs: [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) ·
 [Available rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets) ·
