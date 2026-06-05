@@ -1,20 +1,20 @@
 # Write role moves tags/releases past branch protection
 
-High · Verified live · 2026-06-04 · `stefanpenner/tag-release-test`
+High · Verified live · 2026-06-04 · `stefanpenner-cs/tag-release-test`
 
 **Claim:** a `write`-role collaborator, denied direct push to a review-protected
 default branch, can repoint the **Latest release tag** to unreviewed code.
 
-**At a glance:** the attacked release [`v1.0.0`](https://github.com/stefanpenner/tag-release-test/releases/tag/v1.0.0)
-was moved from its legitimate, reviewed target [`a1c628d`](https://github.com/stefanpenner/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
-onto the unreviewed [`d17977b`](https://github.com/stefanpenner/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91)
-— [diff: what consumers silently got](https://github.com/stefanpenner/tag-release-test/compare/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8...d17977ba8e5a2bbeb38d39e93937da7db78eda91).
+**At a glance:** the attacked release [`v1.0.0`](https://github.com/stefanpenner-cs/tag-release-test/releases/tag/v1.0.0)
+was moved from its legitimate, reviewed target [`a1c628d`](https://github.com/stefanpenner-cs/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
+onto the unreviewed [`d17977b`](https://github.com/stefanpenner-cs/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91)
+— [diff: what consumers silently got](https://github.com/stefanpenner-cs/tag-release-test/compare/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8...d17977ba8e5a2bbeb38d39e93937da7db78eda91).
 
 ## Setup
 
 - `main`: protected — `required_approving_review_count=1`, `enforce_admins=true`
-- release [`v1.0.0`](https://github.com/stefanpenner/tag-release-test/releases/tag/v1.0.0) → reviewed commit [`a1c628d`](https://github.com/stefanpenner/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
-- branch [`attacker`](https://github.com/stefanpenner/tag-release-test/tree/attacker) — unreviewed commit [`d17977b`](https://github.com/stefanpenner/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91) (`app.py` = malicious)
+- release [`v1.0.0`](https://github.com/stefanpenner-cs/tag-release-test/releases/tag/v1.0.0) → reviewed commit [`a1c628d`](https://github.com/stefanpenner-cs/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
+- branch [`attacker`](https://github.com/stefanpenner-cs/tag-release-test/tree/attacker) — unreviewed commit [`d17977b`](https://github.com/stefanpenner-cs/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91) (`app.py` = malicious)
 - actor `sjainepenner`: `push=true admin=false maintain=false`
 
 ```
@@ -119,18 +119,18 @@ audit OWNER/REPO
 Verified output (toggling this repo's ruleset enforcement):
 
 ```
-ruleset active:    PROTECTED  stefanpenner/tag-release-test
-ruleset disabled:  AFFECTED   stefanpenner/tag-release-test
-ruleset active:    PROTECTED  stefanpenner/tag-release-test
+ruleset active:    PROTECTED  stefanpenner-cs/tag-release-test
+ruleset disabled:  AFFECTED   stefanpenner-cs/tag-release-test
+ruleset active:    PROTECTED  stefanpenner-cs/tag-release-test
 ```
 
 ## Artifacts & references
 
-- [Repo `stefanpenner/tag-release-test`](https://github.com/stefanpenner/tag-release-test)
-- [Latest release `v1.0.0`](https://github.com/stefanpenner/tag-release-test/releases/tag/v1.0.0) → reviewed tag target [`a1c628d`](https://github.com/stefanpenner/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
-- Unreviewed [`attacker` commit `d17977b`](https://github.com/stefanpenner/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91) on the [`attacker` branch](https://github.com/stefanpenner/tag-release-test/tree/attacker)
-- [PR #1 — report](https://github.com/stefanpenner/tag-release-test/pull/1) (approved + merged via the gate) · [PR #2 — API + audit](https://github.com/stefanpenner/tag-release-test/pull/2)
-- [Protecting ruleset `protect-release-tags`](https://github.com/stefanpenner/tag-release-test/settings/rules/17286036) (admin only)
+- [Repo `stefanpenner-cs/tag-release-test`](https://github.com/stefanpenner-cs/tag-release-test)
+- [Latest release `v1.0.0`](https://github.com/stefanpenner-cs/tag-release-test/releases/tag/v1.0.0) → reviewed tag target [`a1c628d`](https://github.com/stefanpenner-cs/tag-release-test/commit/a1c628d3fe200bdb6cc49d9b52aa83a4600cfae8)
+- Unreviewed [`attacker` commit `d17977b`](https://github.com/stefanpenner-cs/tag-release-test/commit/d17977ba8e5a2bbeb38d39e93937da7db78eda91) on the [`attacker` branch](https://github.com/stefanpenner-cs/tag-release-test/tree/attacker)
+- [PR #1 — report](https://github.com/stefanpenner-cs/tag-release-test/pull/1) (approved + merged via the gate) · [PR #2 — API + audit](https://github.com/stefanpenner-cs/tag-release-test/pull/2)
+- [Protecting ruleset `protect-release-tags`](https://github.com/stefanpenner-cs/tag-release-test/settings/rules/17286036) (admin only)
 
 GitHub docs: [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) ·
 [Available rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets) ·
